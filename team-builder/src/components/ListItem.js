@@ -37,7 +37,7 @@ const ListItem = (props) => {
     if (props.edited) {
         return (
             <ListCard edited className='card' key={props.index}>
-                <h2><i className="fas fa-user-edit" onClick={() => {props.editFunction(props.index)}}></i>{props.member.name}</h2>
+                <h2><i className="fas fa-user-edit" onClick={() => {props.setEdit(props.index)}}></i>{props.member.name}</h2>
                 <p>{props.member.role}</p>
                 <a target='_blank' rel="noopener noreferrer" href={`mailto:${props.member.email}`}>{props.member.email}</a>
             </ListCard>
@@ -45,7 +45,7 @@ const ListItem = (props) => {
     } else {
         return (
             <ListCard className='card' key={props.index}>
-                <h2><i className="fas fa-user-edit" onClick={() => {props.editFunction(props.index)}}></i>{props.member.name}</h2>
+                <h2><i className="fas fa-user-edit" onClick={() => {props.setEdit(props.index)}}></i>{props.member.name}</h2>
                 <p>{props.member.role}</p>
                 <a target='_blank' rel="noopener noreferrer" href={`mailto:${props.member.email}`}>{props.member.email}</a>
             </ListCard>

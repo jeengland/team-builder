@@ -31,7 +31,10 @@ const Form = (props) => {
     const updateInput = (event) => setFormValues({ ...formValues, [event.target.name]: event.target.value });
     const updateList = (event) => {
         event.preventDefault();
-        if (formValues.name && formValues.email && formValues.role) {
+        if (props.memberToEdit !== undefined && formValues.name && formValues.email && formValues.role){
+            props.saveEdit(formValues);
+        }
+        else if (formValues.name && formValues.email && formValues.role) {
             props.listFunction(list => [...list, formValues]);
             setFormValues({ name: '', email: '', role: '' });
             console.log(formValues);

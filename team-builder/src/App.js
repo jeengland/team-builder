@@ -15,7 +15,7 @@ const List = styled.section`
 `
 
 function App() {
-  const [listMembers, setListMembers] = useState([{name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}]);
+  const [listMembers, setListMembers] = useState([{name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob F England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob G England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob H England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob I England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob J England", email: "musictheorizer@gmail.com", role: "Front End"}]);
   const [memberToEdit, setMemberToEdit] = useState(undefined);
   const setEdit = (index) => (setMemberToEdit(index));
   return (
@@ -24,7 +24,7 @@ function App() {
       <List>
         {listMembers.map((member, index) => {
           return (
-            <ListItem member={member} index={index} editFunction={setEdit}/>
+            <ListItem member={member} index={index} editFunction={setEdit}  edited={memberToEdit === index ? true : false}/>
           )
         })}
       </List>

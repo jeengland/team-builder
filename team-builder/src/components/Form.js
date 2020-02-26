@@ -50,7 +50,7 @@ const Form = (props) => {
                 role: member.role
             })
         }
-    }, [props.memberToEdit])
+    }, [props.memberToEdit, props.list, member])
     return (
         <FormContainer onSubmit={updateList}>
             <label htmlFor='name' required>Name:</label>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
 
 const FormContainer = styled.form`
     margin: 3% auto;
@@ -33,6 +32,7 @@ const Form = (props) => {
         event.preventDefault();
         if (props.memberToEdit !== undefined && formValues.name && formValues.email && formValues.role){
             props.saveEdit(formValues);
+            setFormValues({ name: '', email: '', role: '' });
         }
         else if (formValues.name && formValues.email && formValues.role) {
             props.listFunction(list => [...list, formValues]);
@@ -68,7 +68,13 @@ const Form = (props) => {
                 <option value='UX Designer'>UX Designer</option>
                 <option value='Data Scientist'>Data Scientist</option>
             </select>
-            <button type='submit'>Submit</button>
+            <button type='submit'>{props.memberToEdit ? 'Submit Edit' : 'Submit'}</button>
+            {props.memberToEdit !== undefined 
+                ? <button onClick={() => {
+                    props.deleteFunction(); 
+                    setFormValues({ name: '', email: '', role: '' });
+                }}>Delete</button> 
+                : undefined }
         </FormContainer>
     )
 }

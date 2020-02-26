@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import Form from './components/Form';
 import ListItem from './components/ListItem'
-import { useEffect } from 'react';
 
 const List = styled.section`
   margin: 0 auto;
@@ -15,7 +14,7 @@ const List = styled.section`
 `
 
 function App() {
-  const [listMembers, setListMembers] = useState([{name: "Jacob E England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob F England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob G England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob H England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob I England", email: "musictheorizer@gmail.com", role: "Front End"}, {name: "Jacob J England", email: "musictheorizer@gmail.com", role: "Front End"}]);
+  const [listMembers, setListMembers] = useState([]);
   const [memberToEdit, setMemberToEdit] = useState(undefined);
   const setEdit = (index) => (setMemberToEdit(index));
   const saveEdit = (newInfo) => {
@@ -24,9 +23,18 @@ function App() {
     setListMembers(newArr);
     setMemberToEdit(undefined);
   };
+  const deleteCard = (index) => {
+    let confirmation = window.confirm("Are you sure you want to delete this card? This cannot be undone");
+    if (confirmation) {
+      let newArr = [...listMembers];
+      newArr.splice(memberToEdit, 1);
+      setListMembers(newArr);
+      setMemberToEdit(undefined);
+    }
+  }
   return (
     <div className="App">
-      <Form listFunction={setListMembers} list={listMembers} memberToEdit={memberToEdit} saveEdit={saveEdit}/>
+      <Form listFunction={setListMembers} list={listMembers} memberToEdit={memberToEdit} saveEdit={saveEdit} deleteFunction={deleteCard}/>
       <List>
         {listMembers.map((member, index) => {
           return (

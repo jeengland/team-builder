@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
 
 const FormContainer = styled.form`
     margin: 3% auto;
@@ -26,6 +27,7 @@ const FormContainer = styled.form`
 `
 const Form = (props) => {
     const [formValues, setFormValues] = useState({ name: '', email: '', role: '' });
+    const [member, setMember] = useState({});
     const updateInput = (event) => setFormValues({ ...formValues, [event.target.name]: event.target.value });
     const updateList = (event) => {
         event.preventDefault();
@@ -39,6 +41,16 @@ const Form = (props) => {
             alert(`You still need to fill out: ${missing.join(", ")}`);
         }     
     }
+    useEffect(() => {
+        if (props.memberToEdit !== undefined) {
+            setMember(props.list[props.memberToEdit]);
+            setFormValues({
+                name: member.name,
+                email: member.email,
+                role: member.role
+            })
+        }
+    }, [props.memberToEdit])
     return (
         <FormContainer onSubmit={updateList}>
             <label htmlFor='name' required>Name:</label>

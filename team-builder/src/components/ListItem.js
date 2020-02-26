@@ -11,17 +11,25 @@ const ListCard = styled.div`
     h2 {
         margin-top: 0;
         margin-bottom: 2%;
+        font-size: 1.4rem;
     }
     p {
         margin-top: 0;
         margin-bottom: 5%;
     }
+    i {
+        font-size: 1rem;
+        color: grey;
+        &:hover {
+            color: red;
+        }
+    }
 `
 
 const ListItem = (props) => {
     return (
-        <ListCard className='card'>
-            <h2>{props.member.name}</h2>
+        <ListCard className='card' key={props.index}>
+            <h2>{props.member.name} <i className="fas fa-user-edit" onClick={() => props.editFunction(props.index)}></i></h2>
             <p>{props.member.role}</p>
             <a target='_blank' rel="noopener noreferrer" href={`mailto:${props.member.email}`}>{props.member.email}</a>
         </ListCard>

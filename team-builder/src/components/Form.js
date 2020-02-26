@@ -1,29 +1,60 @@
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 
+const FormContainer = styled.form`
+    margin: 3% auto;
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    border: black 1px solid;
+    border-radius: 10px;
+    padding: 2%;
+    label {
+        width: 35%;
+        text-align: right;
+        padding-right: 1%;
+    }
+    input {
+        margin-bottom: 2%;
+        max-width: 55%;
+    }
+    button {
+        width: 30%;
+        margin-top: 2%;
+        margin-left: 35%;
+    }
+`
 const Form = (props) => {
     const [formValues, setFormValues] = useState({ name: '', email: '', role: '' });
     const updateInput = (event) => setFormValues({ ...formValues, [event.target.name]: event.target.value });
     const updateList = (event) => {
         event.preventDefault();
-        props.listFunction(list => [...list, formValues]);
-        setFormValues({ name: '', email: '', role: '' });
+        if (formValues.name && formValues.email && formValues.role) {
+            props.listFunction(list => [...list, formValues]);
+            setFormValues({ name: '', email: '', role: '' });
+            console.log(formValues);
+        } else {
+            let missing = [];
+            Object.keys(formValues).forEach((key => formValues[key] ? undefined : missing.push(key)))
+            alert(`You still need to fill out: ${missing.join(", ")}`);
+        }     
     }
     return (
-        <form onSubmit={updateList}>
-            <label htmlFor='name'>Name</label>
-            <input type='text' id='name' name='name' placeholder='Name' onChange={updateInput}/>
-            <label htmlFor='email'>Email</label>
-            <input type='email' id='email' name='email' placeholder='Email' onChange={updateInput}/>
-            <label htmlFor='role'>Role</label>
-            <select id='role' name='role' onChange={updateInput} defaultValue='select'>
-                <option value='select' disabled>Select an option</option>
+        <FormContainer onSubmit={updateList}>
+            <label htmlFor='name' required>Name:</label>
+            <input type='text' id='name' name='name' placeholder='Name' onChange={updateInput} value={formValues.name}/>
+            <label htmlFor='email'>Email:</label>
+            <input type='email' id='email' name='email' placeholder='Email' onChange={updateInput} value={formValues.email}/>
+            <label htmlFor='role'>Role:</label>
+            <select id='role' name='role' onChange={updateInput} value={formValues.role}>
+                <option value='' disabled>Select an option</option>
                 <option value='Front End'>Front End</option>
                 <option value='Back End'>Back End</option>
                 <option value='UX Designer'>UX Designer</option>
                 <option value='Data Scientist'>Data Scientist</option>
             </select>
             <button type='submit'>Submit</button>
-        </form>
+        </FormContainer>
     )
 }
 
